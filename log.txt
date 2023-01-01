@@ -1,6 +1,18 @@
-TIL Log
+TIL Daily Log
 
 January 2023
 
-1.1- Concept: , Language/Framework:
-TIL 
+1.1 - Concept: Spread syntax (...), Language/Framework: JavaScript
+TIL... The spread syntax (...) expression introduced in ES6 allows you to "expand" an iterable, such as an array or string, into its individual elements in places where zero or more arguments (for function calls) or elements (for array literals) are expected. For object literals, the spread syntax enumerates the properties of an object and adds the key-value pairs to the object being created. (MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
+function fullBirbName(x, y) {
+    return x + " " + y;
+}
+
+const grayCatbird = ["Gray", "Catbird"];
+
+console.log(fullBirbName(...grayCatbird));
+// expected output: Gray Catbird
+// without spread syntax, the expect output would be: Gray,Catbird undefined
+
+Additional reading: freeCodeCamp - https://www.freecodecamp.org/news/an-introduction-to-spread-syntax-in-javascript-fba39595922c/
