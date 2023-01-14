@@ -81,3 +81,43 @@ const trianglePerimeter = triangleSides.reduce(
 
 console.log(trianglePerimeter);
 // expected output: 3
+
+1.14 - Concept: Enclosing scope context for arrow functions, Language/Framework: JavaScript
+
+TIL... Arrow functions do not have their own "execution context" which means that both 'this' and 'arguments' are inherited from their parent function. (Zendev - https://zendev.com/2018/10/01/javascript-arrow-functions-how-why-when.html)
+
+For instance:
+
+const test = {
+  name: 'test object',
+  createAnonFunction: function() {
+    return function() {
+      console.log(this.name);
+      console.log(arguments);
+    };
+  },
+
+  createArrowFunction: function() {
+    return () => {
+      console.log(this.name);
+      console.log(arguments);
+    };
+  }
+};
+
+const anon = test.createAnonFunction('hello', 'world');
+const arrow = test.createArrowFunction('hello', 'world');
+
+> anon();
+undefined
+{}
+
+> arrow();
+test object
+{ '0': 'hello', '1': 'world' }
+
+The anonymous function has its own function context, therefore there is no reference available to the 'this.name' of the test object or the arguments being called.
+
+The arrow function has the exact same function contest as the function that created it. It has access to both the arguments being called and the test object.
+
+1.XX - Concept: Using arrow function expressions as methods, Language/Framework: JavaScript
