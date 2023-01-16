@@ -120,4 +120,29 @@ The anonymous function has its own function context, therefore there is no refer
 
 The arrow function has the exact same function contest as the function that created it. It has access to both the arguments being called and the test object.
 
-1.XX - Concept: Using arrow function expressions as methods, Language/Framework: JavaScript
+1.15 - Concept: Using arrow function expressions as methods, Language/Framework: JavaScript
+
+You cannot use arrow function expressions as methods.
+
+Arrow functions work differently compared to regular functions. With arrow functions, there are no binding of the keyword 'this'. For regular functions, the 'this' keyword represents the object that called the function. Therefore, for arrow functions, the 'this' keyword ALWAYS represents the object that defined the arrow function.
+
+Watch what happens:
+
+const birbs = {
+    a: mockingbird,
+    b: () => console.log(this.a, this),
+    c() {
+        console.log(this.a, this);
+    },
+};
+
+birbs.b(); // logs undefined, Window { /* ... */ } (or the global object)
+birbs.c(); // logs mockingbird, Object {a: 'mockingbird', b: function, c: function}
+
+So what happened here?
+
+A class's body has a 'this' context. Arrow functions, as class fields, will close over, or supersede, the class's this context. The 'this' inside of the arrow functions body will point to the instance, or the class itself for static fields. Because of this closure, the value of 'this' will not change based on the context of the execution and the function's own binding becomes irrelevant.
+
+w3schools - https://www.w3schools.com/Js/js_arrow_function.asp
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#cannot_be_used_as_methods
