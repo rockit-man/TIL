@@ -146,3 +146,38 @@ A class's body has a 'this' context. Arrow functions, as class fields, will clos
 w3schools - https://www.w3schools.com/Js/js_arrow_function.asp
 
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#cannot_be_used_as_methods
+
+1.16 - Concept: Double NOT (!!) & Logical complement/negation, Language/Framework: JavaScript
+
+The double NOT (!!) operator is the antithesis or direct opposite of the logical NOT (!) operator. The logical NOT (!) operator, also affectionately known as "bang", is typically used with boolean (logical) values and makes them truthy or falsy (true or false) based on their boolean primitive value. Primitive values are the values associated with the predefined data types provided by JavaScript language; also known as "built-in" data types.
+
+While the logical NOT (!) is used with operands that aren't Boolean values, it is still considered to be a boolean operator because its return value can always be converted to a boolean primitive.
+
+not1 = !true // will return false; true is truthy
+not2 = !false // will return true; false is falsy
+not3 = !'' // will return true; empty strings ('') are falsy
+not4 = !'mockingbird' // will return false; strings are truthy
+
+The double NOT (!!) is essentially a function that will explicitily force the conversion of any value to the corresponding boolean primitive.
+
+doubleNot1 = !!true // will return true; true is truthy
+doubleNot2 = !!false // will return false; false is falsy
+doubleNot3 = !!'' // will return false; empty strings ('') are falsy
+doubleNot4 = !!'mockingbird' // will return true; strings are truthy
+
+Another way to use this type of conversion is though the Boolean function:
+
+b1 = Boolean(true) // will return true
+b2 = Boolean(false) // will return false
+b3 = !Boolean(true) // will return false
+b4 = !Boolean(false) // will return true
+b5 = !!Boolean(true) // will return true
+b6 = !!Boolean(false) // will return false
+
+References:
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_NOT#double_not_!!
+      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#boolean_type
+      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean#boolean_coercion
+
+GeeksforGeeks - https://www.geeksforgeeks.org/primitive-and-non-primitive-data-types-in-javascript/
