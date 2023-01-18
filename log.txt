@@ -181,3 +181,80 @@ MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operator
       https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean#boolean_coercion
 
 GeeksforGeeks - https://www.geeksforgeeks.org/primitive-and-non-primitive-data-types-in-javascript/
+
+1.18 - Concept: All objects are truthy -- including empty objects, Language/Framework: JavaScript
+
+In JavaScript, nearly all objects are instances of 'Object'. Typically, objects will inherit properties and methods from 'Object.prototype'. empty object inherits properties from its prototype 'Object.prototype' as a default. Prototype is a JavaScript property that allows you to add new properties to object constructors. Inheritance in JavaScript refers to the property of objects inheriting, or acquiring, all the properties and behaviors of the parent object.
+
+  * 'Date' objects inherit from 'Date.prototype'
+  * 'Array' objects inherit from 'Array.prototype'
+  * 'Person' objects inherit from 'Person.prototype'
+
+In essence, the 'Object.prototype' is on the top of the "prototype inheritance food chain"; 'Date', 'Array', and 'Person' objects, for example, all inherit from 'Object.prototype'.
+
+// Object constructor syntax (2 ways):
+new Object(value)
+Object(value)
+
+'value' is any value.
+
+The constructor input gets turned into into an object. The objects behavior is determined by the input's type. The Object() constructor will return an object of a Type that corresponds to the given value:
+
+const five = new Object(5);
+Object.getPrototypeOf(five); // returns Number
+
+If the value being passed into the constructor is an object, it will return the value of the object:
+
+const kingJames = { name: 'LeBron James', age: 38, height: '6 ft 9 in' };
+const lilGoat = new Object(kingJames);
+console.log(lilGoat); // returns {name: 'LeBron James', age: 38, height: '6 ft 9 in'}
+
+Otherwise, if the value being passed in is 'null' or 'undefined', it creates and return an empty object ({}). It's important to note that both 'null' and 'undefined' are falsy, or not true in a Boolean sense.
+
+// Create an empty object:
+const o1 = new Object(); // returns {} - [[Prototype]]: Object
+const o2 = Object(); // returns {} - [[Prototype]]: Object
+
+// Undefined an null types as the value being passed in
+const o3 = new Object(undefined);
+const o4 = Object(undefined);
+const o5 = new Object(null);
+const o6 = Object(null);
+
+All 6 of these variables will log '{}', an empty object with properties inherited from the 'Object prototype'.
+
+With that being said, even when Objects are empty, or being constructed without any new properties or methods, or with null and undefined types, they are still truthy. This is because they have inherited properties from 'Object.prototype'.
+
+// Boolean check - wha wha???
+const b1 = Boolean(o1); // will return true
+const b2 = Boolean(o2); // will return true
+const b3 = Boolean(o3); // will return true
+const b4 = Boolean(o4); // will return true
+const b5 = Boolean(o5); // will return true
+const b6 = Boolean(o6); // will return true
+
+TRUUUUUUUUUUUUUUUUUUUUU
+
+References:
+
+w3schools - https://www.w3schools.com/js/js_object_prototypes.asp
+
+w3schools.blog - https://www.w3schools.blog/inheritance-javascript-js
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/Object
+
+
+1.19.23 - Concept: Objects with falsy values are truthy, Language/Framework: JavaScript
+
+const o7 = Object(false);
+const o8 = Object(0);
+const o9 = Object(-0);
+const o10 = Object('');
+const o11 = Object(NaN);
+
+const b7 = Boolean(o7);
+const b8 = Boolean(o8);
+const b9 = Boolean(o9);
+const b10 = Boolean(o10);
+const b11 = Boolean(o11);
