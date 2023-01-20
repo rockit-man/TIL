@@ -272,3 +272,28 @@ References:
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
 w3schools - https://www.w3schools.com/JS/js_booleans.asp
+
+1.20 - Concept: git pull, Language/Framework: Git
+
+'git pull' is a Git command that updates the local version of a repository from a remote. It prompts network interaction by Git.
+
+By default, 'git pull' does two things: 1 - updates the current local working branch (the currently checked out branch), 2 - updates the remote tracking branches for all other branches.
+
+'git pull' fetches ('git fetch') the new commits and merges ('git merge') these into your local branch. (freeCodeCamp)
+
+// Syntax
+git pull OPTIONS REPOSITORY REFSPEC // general format
+git pull REMOTE-NAME BRANCH-NAME // pull from specified branch
+
+Note: If there are any uncommited changes, the merge function of the 'git pull' command fails and the local branch is untouched. Always commit your changes in a branch before pulling new commits from a remote repository.
+
+Using 'git pull': The 'git pull' command is used to update a local repository from the corresponding remote repository. For example, if you are working on the local 'master', execute 'git pull' to update the local copy of 'master' and update the other remote tracking branches.
+
+Note: The local repository must have a linked remote repository - Check this by executing 'git remote -v'. You may may need to use 'git pull origin' or 'git pull upstream' if more information is needed. The branch you are currently checked out to must have a corresponding remote tracking branch - Check by executing 'git status'. Otherwise, Git doesn't know where to pull information from.
+
+If you are checked out to a 'feature' branch and 'git pull' is executed, when you checkout to 'master', any new updates will not be included. It's always a good idea to execute 'git pull' whenever checking out to another branch.
+
+Reference:
+
+freeCodeCamp - https://www.freecodecamp.org/news/git-pull-explained/
+
