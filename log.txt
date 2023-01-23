@@ -16,7 +16,7 @@ console.log(fullBirbName(...grayCatbird));
 // expected output: Gray Catbird
 // without spread syntax, the expect output would be: Gray,Catbird undefined
 
-References:
+Reference(s):
 
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 
@@ -40,7 +40,7 @@ for (const property in carolinaWren) {
     Habitat: Dense forest, farm edges, and suburban areas
 */
 
-References:
+Reference(s):
 
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in
 
@@ -61,7 +61,7 @@ function trianglePerimeter(arr) {
 console.log(trianglePerimeter(triangleSides));
 // expected output: 3
 
-References:
+Reference(s):
 
 GeeksforGeeks - https://www.geeksforgeeks.org/how-to-find-the-sum-of-all-elements-of-a-given-array-in-javascript/
 
@@ -95,7 +95,7 @@ const trianglePerimeter = triangleSides.reduce(
 console.log(trianglePerimeter);
 // expected output: 3
 
-References:
+Reference(s):
 
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
 
@@ -137,7 +137,7 @@ The anonymous function has its own function context, therefore there is no refer
 
 The arrow function has the exact same function contest as the function that created it. It has access to both the arguments being called and the test object.
 
-References:
+Reference(s):
 
 Zendev - https://zendev.com/2018/10/01/javascript-arrow-functions-how-why-when.html
 
@@ -164,7 +164,7 @@ So what happened here?
 
 A class's body has a 'this' context. Arrow functions, as class fields, will close over, or supersede, the class's this context. The 'this' inside of the arrow functions body will point to the instance, or the class itself for static fields. Because of this closure, the value of 'this' will not change based on the context of the execution and the function's own binding becomes irrelevant.
 
-References:
+Reference(s):
 
 w3schools - https://www.w3schools.com/Js/js_arrow_function.asp
 
@@ -197,7 +197,7 @@ b4 = !Boolean(false) // will return true
 b5 = !!Boolean(true) // will return true
 b6 = !!Boolean(false) // will return false
 
-References:
+Reference(s):
 
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_NOT#double_not_!!
       https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#boolean_type
@@ -258,7 +258,7 @@ const b6 = Boolean(o6); // will return true
 
 TRUUUUUUUUUUUUUUUUUUUUU
 
-References:
+Reference(s):
 
 w3schools - https://www.w3schools.com/js/js_object_prototypes.asp
 
@@ -290,7 +290,7 @@ const b9 = Boolean(o9); // returns true
 const b10 = Boolean(o10); // returns true
 const b11 = Boolean(o11); // returns true
 
-References:
+Reference(s):
 
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
@@ -316,7 +316,7 @@ Note: The local repository must have a linked remote repository - Check this by 
 
 If you are checked out to a 'feature' branch and 'git pull' is executed, when you checkout to 'master', any new updates will not be included. It's always a good idea to execute 'git pull' whenever checking out to another branch.
 
-References:
+Reference(s):
 
 freeCodeCamp - https://www.freecodecamp.org/news/git-pull-explained/
 
@@ -355,10 +355,108 @@ function example() {
 
 While conditional chains are cool, keep it simple to keep your code readable.
 
-References & Additional Reading:
+Reference(s) & Additional Reading:
 
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
 
 PlainEnglish - https://javascript.plainenglish.io/better-javascript-the-ternary-operator-d181338c4c20
              - https://javascript.plainenglish.io/javascript-ternary-operator-b76a02c90850
              - https://javascript.plainenglish.io/how-to-use-ternary-operators-effectively-in-javascript-8c6414551346
+
+1.22.23 Concept: The JavaScript ?? (nullish coalescing) Operator, Language/Framework: JavaScript
+
+TIL... The JavaScript ?? (nullish coalescing) operator provides a default value when a variable or expression evaluates to null or undefined. (PlainEnglish) MDN defines this operator as "a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand." (MDN)
+
+// Syntax:
+leftExpr ?? rightExpr
+
+const foo = null ?? 'default expression';
+console.log(foo); // output: "default expression"
+
+const bar = 0 ?? 42;
+console.log(bar); // output: 0
+
+One could say that the nullish coalescing operator is a special case of the logical OR (||) operator which returns the right-hand side operand if the left operanad is any falsy value, and is not relegated to only 'null' or 'undefined'. 
+
+The nullish coalescing operator has the fifth-lowest operator precedence, between (||) and the conditional (ternary) operator.
+
+It isn't possible to combine both the AND (&&) and OR operators (||) directly with ??. Syntax errors will be thrown. (MDN)
+
+null || undefined ?? "foo"; // SyntaxError: Unexpected token '??'
+true && undefined ?? "foo"; // SyntaxError: Unexpected token '??'
+
+Use parethesis to explicitly indicate precedence:
+
+(null || undefined) ?? "foo"; // returns "foo"
+(true && undefined) ?? "foo"; // returns "foo"
+
+Using the nullish coalescing operator:
+
+const nullVoid = null;
+const noText = '';
+const aNumber = 42;
+
+const value1 = nullVoid ?? 'default for 1';
+const value2 = noText ?? 'default for 2';
+const value3 = aNumber ?? 0;
+
+console.log(value1); // 'default for 1'
+console.log(value2); // '' (empty strings are not null or undefined)
+console.log(value3); // 42
+
+A common pattern to assigning a default value to a variable is using the logical OR operator (||):
+
+let foo;
+const someText = foo || "Hello!"; // foo is undefined; it never got assigned any value
+
+Since '||' is a boolean logical operator, the left-hand-side operand gets coerced to a boolean for the evaluation. In this case, falsy value do not get returned. This may cause unwanted behavior if you want to consider 0, '', or NaN as valid values.
+
+const count = 0;
+const text = '';
+
+const quantity = count || 42;
+const message = text || 'Hi!';
+
+console.log(quantity); // 42
+console.log(message); // 'Hi!'
+
+When you want to allow falsy values outside of 'null' or 'undefined', the nullish coalescing operator could be a good way to go:
+
+const myText = '';
+
+const nonFalsyText = myText || "Hi y'all!";
+console.log(nonFalsyText); // "Hi y'all!"
+
+const preserveFalsy = myText ?? "WAZZUUUP";
+console.log(preserveFalsy); // '' (myText isn't undefined or null)
+
+Short-ciruciting
+
+Like the OR and AND logical operators, the right-hand-side expression doesn't get evaluated if the left-hand-side proves to be neither 'null' nor 'undefined'. (MDN)
+
+function A() {
+  console.log("function A was called");
+  return undefined;
+}
+function B() {
+  console.log("function B was called");
+  return false;
+}
+function C() {
+  console.log("function C was called");
+  return "foo";
+}
+
+console.log(A() ?? C()); // logs "function A was called", "function C was called", "foo"
+
+Here, A() returned undefined, therefore both expressions were evaluated. Here's another log:
+
+console.log(B() ?? C()); // logs "function B was called", false
+
+Here, B() returned false (not null or undefined), so the right-hand-side expression doesn't get evaluated.
+
+Reference(s):
+
+PlainEnglish - https://javascript.plainenglish.io/javascript-operator-5d3bd92e835e
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing
