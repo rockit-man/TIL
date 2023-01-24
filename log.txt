@@ -536,3 +536,56 @@ Reference(s):
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
 
 PlainEnglish - https://javascript.plainenglish.io/javascript-optional-chaining-7a2bce30c450
+
+
+1.24.23 - Concept: Property accessors, Language/Framework: JavaScript
+
+Property accessor allow you to access an object's properties by using the dot notation or the bracket notation. (MDN)
+
+// Syntax:
+object.propertyName
+object[expression]
+
+Objects can be thought of associative arrays, much like maps, dictionaries, hashes, and lookup tables. The keys in this type of array are the names of the object's properties which can be accessed with both dot notation and bracket notation. (MDN)
+
+Dot notation
+
+The property name in the 'object.propertyName' syntax must be a valid JavaScript identifier which can also be a reserved word.
+
+const variable = object.propertyName;
+object.propertyName = value;
+
+const object = {};
+object.$1 = "foo";
+console.log(object.$1); // foo
+
+const object = {};
+object.1 = "bar";
+console.log(object.1); // SyntaxError: Unexpected number
+
+Bracket notation
+
+For the 'object[expression]' syntax, the 'expression' should evaluate to a string or Symbol that represents the property's name. It can be any string literal. (MDN)
+
+const variable = object[propertyName];
+object[propertyName] = value;
+
+const key = "name";
+const getKey = () => "name";
+const Obj = { name: "DOOM" };
+
+Obj["name"]; // 'DOOM'
+Obj[key]; // 'DOOM'
+Obj[getKey()]; // 'DOOM'
+
+Property names
+
+Property names are string or Symbol. Any other value, including a number, will be coerced to a string.
+
+const object = {};
+object["1"] = "value";
+console.log(object[1]); // value
+
+Reference(s):
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors
