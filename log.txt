@@ -540,7 +540,7 @@ PlainEnglish - https://javascript.plainenglish.io/javascript-optional-chaining-7
 
 1.24.23 - Concept: Property accessors, Language/Framework: JavaScript
 
-Property accessor allow you to access an object's properties by using the dot notation or the bracket notation. (MDN)
+TIL... Property accessor allow you to access an object's properties by using the dot notation or the bracket notation. (MDN)
 
 // Syntax:
 object.propertyName
@@ -589,3 +589,53 @@ console.log(object[1]); // value
 Reference(s):
 
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors
+
+1.25.23 - Concept: Short-circuit evaluation, Language/Framework
+
+TIL... As logical expressions are evaluated from left to right, they are tested for possible "short-circuit" evaluation using the following rules:
+
+  * false && anything is short-circuit evaluated to false
+  * true || anything is short-circuit evaluated to true
+
+The rules of logic guarantee that these evaluations are always correct. Note, the expression named 'anything' doesn't get evaluated since the first operand evaluates to false. The logical expression gets short-circuited, therefore any side effects that would have come from it being evaluated do not take effect. (MDN)
+
+Let's look at more possible short-circuit evaluations:
+
+// Logical AND Operator (&&)
+true && true; // true; both expressions are truthy
+true && false; // false; only one expression is truthy
+false && true; // false; only one expression is truthy
+false && (0 === 1); // false; neither expression is truthy
+false && ‘dog’; // false; one expression is falsy
+‘dog’ && false; // false; one expression is falsy
+‘cat’ && ‘dog’; // dog; both expressions are truthy; && returns first truthy expression
+
+// Logical OR Operator (||)
+true || true // true; both operands are truthy, short-circuited
+true || false // true; evaluation stops at first truthy operand
+false || true // true; evaluation stops at first truthy operand
+false || true || false // true; evaluation stops at first truthy operandy
+false || false // false; no operand is truthy
+0 || 1 // 1; 1 is truthy
+1 || 0 // 1; 1 is truthy
+0 || 0 // 0; neither operand is truthy
+0 || null // null; both operands are falsy
+0 || 0 || null // null; all operands are falsy
+0 || null || 0 // 0; all operands are falsy
+false || ‘cat’ // cat; ‘cat’ is truthy
+false || ‘dog’ || null // dog; ‘dog’ is truthy
+‘cat’ || ‘dog’ // cat; both operands are truthy, ‘dog’ doesn’t get evaluated
+
+Note: The logical AND operator (&&) takes precedence over the logical OR operator (||) and gets executed before the logical OR operator (||). Otherwise, the first truthy expression or the last falsy expression gets returned. (MDN)
+
+true && true || false // true
+true && false || false // false
+false && false || true // true
+true || true && false // true
+
+Reference(s):
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#logical_operators
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR
+
+JavaScript.info - https://javascript.info/logical-operators
