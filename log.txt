@@ -639,3 +639,56 @@ MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_
     - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR
 
 JavaScript.info - https://javascript.info/logical-operators
+
+
+1.27.23 - Concept: The arguments object + arguments.length, Language/Framework: JavaScript
+
+TIL... 'arguments' is an Array-like object that is accessible inside functions that contains the values of the arguments passed into that function.
+
+More specifically, it's available within all non-arrow functions. Using the arguments object within a function allows you to access the arguments being passed into that function. It contains within it entries for each argument the function was called with having the first entry's index at 0. (MDN)
+
+arguments[0]; // first argument
+arguments[1]; // second argument
+arguments[2]; // third argument
+
+And so on.
+
+The arguments object is especially useful for functions that are called with more arguments than they are formally declared to accept. (MDN) These arguments are known as variadic functions, or functions that accept a variable number of arguments. (Wikipedia) You can use 'arguments.length' to count how many arguments the function was called with. You can also inspect the function's length property to count how many parameters a function is declared to accept.
+
+function moreArgs(a, b, ...moreArgs) {
+  console.log(arguments[0]);
+  console.log(arguments[1]);
+  console.log(arguments[2]);
+}
+
+moreArgs(1, 2, [3, 4, 5]);
+// 1
+// 2
+// [3, 4, 5];
+
+function howManyArgs(a, b, c) {
+  console.log("arguments length: ", arguments.length);
+}
+
+howManyArgs(1, 2, 3); // arguments length: 3
+
+function howManyParams(a, b, c, d) {
+  return console.log(arguments.length);
+}
+
+howManyParams(); // 0
+console.log(howManyParams.arguments); // null
+console.log(howManyParams.arguments.length); // TypeError: Cannot read properties of null (reading 'length')
+console.log(howManyParams.length); // 4
+
+howManyParams(1, 2, 3) // 3
+
+Note: 'arguments.length' works on parameters being passed in. If nothing is being passed in, you end up with a nullish arguments object.
+
+Reference(s):
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/length
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length
+
+Wikipedia - https://en.wikipedia.org/wiki/Variadic_function
