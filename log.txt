@@ -692,3 +692,8 @@ MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Function
     - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length
 
 Wikipedia - https://en.wikipedia.org/wiki/Variadic_function
+
+
+1.29.23 - Concept: Strict equality (===) operator, Language/Framework: JavaScript
+
+TIL... 
