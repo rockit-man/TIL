@@ -745,3 +745,56 @@ MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operator
     - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#strict_equality_using
 
 ECMAScript - https://tc39.es/ecma262/#sec-isstrictlyequal
+
+
+1.30.23 - Concept: The equality (==) operator, Language/Framework: JavaScript
+
+TIL... Similarly to the strict equality (===) operator, the equality (==) operator checks whether two operands are equal, returning a Boolean result. Unlike the strict equality operator, it attempts to convert and compare operands that are of different types. (MDN)
+
+// Syntax:
+x == y
+
+The equality operator (== and !=) provide the IsLooselyEqual semantic:
+
+1. If the operands have the same type:
+  * Object: return 'true' only if both operands refer to the same object
+  * String: return 'true' only if both operands have the same characters in the same exact order
+  * Number: return 'true' only if both operands have the same value
+    ** +0 and -0 are treated as the same value
+    ** return 'false' if either operand is 'NaN'; 'NaN' is never equal to 'NaN'
+  * Boolean: return 'true' only if operands are both 'true' or both 'false'
+  * BigInt: return 'true' only if operands have the same value
+  * Symbol: return 'ture' only if both operands refer to the same Symbol
+2. If one of the operands is 'null' or 'undefined', the other must also be 'null' or 'undefined' to return 'true', otherwise return 'false'.
+3. If one of the operands is an object and the other is a primitive, the object is converted to a primitive.
+4. Both operands are converted to primitives and the rest of the conversion is case-by-case:
+  * If both operands are the same type, follow the protocol from step 1.
+  * If one of the operands is a symbol, but the other isn't, return 'false'.
+  * If one of the operands is a Boolean but the other is not, convert the boolean to number:
+    ** 'true' becomes 1, and 'false' becomes 0
+    ** losely compare both
+  * Number to String: strings are converted to numbers; conversion failure results in NaN and comparison returns 'false'
+  * Number to BigInt: compare by their numeric value; if the number is +/-Infinity or NaN, return 'false'
+  * String to BigInt: convert strings to BigInts using the same algorithm as the BigInt() constructor; if conversion fails, return 'false'
+
+  Loose equality is "symmetric": A == B has similar semantics to B == A for any values of A and B (order of applied conversions stays the same)
+
+  // No type conversion
+  1 == 1; // true
+  'hallo' == 'hallo'; // true
+
+  // With type conversion
+  '1' == 1; // true
+  0 == false; // true
+  0 == null; // false
+  0 == undefined // false
+  0 == !!null; // true; due to Logical NOT operator
+  0 == !!undefined; // true; due to Logical NOT operator
+  null == undefined; // true
+
+  // Comparison of objects
+  const num1 = new Number(1);
+  const num2 = new Number(1);
+  num1 == 1; // true
+  num1 == num2; // false
+  num1 == num1; // true
