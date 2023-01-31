@@ -696,4 +696,52 @@ Wikipedia - https://en.wikipedia.org/wiki/Variadic_function
 
 1.29.23 - Concept: Strict equality (===) operator, Language/Framework: JavaScript
 
-TIL... 
+TIL... The strict equality (===) operator checks whether two operands are equal and returns a Boolean value. (MDN) The strict equality operator will always consider operands of different types to be different.
+
+// Syntax:
+x === y
+
+Both the strict equality operator and it's inverse, the strict inequality (!==), provide the 'IsStrictlyEqual' semantic, an abstract operation which, when called, performs the following steps:
+
+  1. If Type(x) is not Type(y), return 'false'.
+  2. If x is a Number, then
+    a. Return Number::equal(x, y).
+  3. Return SameValueNonNumber(x, y).
+
+The strict equality operator, as it name suggests, compares two values for equality. Neither value gets implicitly converted to some other value before the comparison. The values are considered unequal if the values have different types. The values are considered equal under the following conditions:
+
+  * if the values have the same type, aren't numbers, and have the same value;
+  * if both values are numbers and considered equal;
+    ** as long as they're both not 'NaN' and are the same value;
+    ** if one is +0 and the other is -0;
+
+const num = 0;
+const obj = new Object(0);
+const str = "0"
+
+console.log(num === num); // true
+console.log(obj === obj); // true
+console.log(str === str); // true
+
+console.log(num === obj); // false
+console.log(num === str); // false
+console.log(obj === str); // false
+console.log(null === undefined); // false
+console.log(obj === null); // false
+console.log(obj === undefined); // false
+
+Array index-finding methods, such as Array.prototype.indexOf(), Array.prototype.lastIndexOf(), and case-matching, use strict equality. Trying to match NaN in an array or as a case value will not work.
+
+console.log([NaN].indexOf(NaN)); // -1
+switch (NaN) {
+  case NaN: console.log("Not a chance"); // Nothing gets logged
+}
+
+Simply put, you can't go wrong with using the strict equality operator when comparing two values; for all non-number values, a value is only equal to itself - for numbers, it checks the two conditions mentioned above. Even when x = NaN, (x !== x) is 'true'.
+
+Reference(s):
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#strict_equality_using
+
+ECMAScript - https://tc39.es/ecma262/#sec-isstrictlyequal
