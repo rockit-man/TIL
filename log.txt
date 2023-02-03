@@ -756,50 +756,88 @@ x == y
 
 The equality operator (== and !=) provide the 'IsLooselyEqual' semantic:
 
-1. If the operands have the same type:
-  * Object: return 'true' only if both operands refer to the same object
-  * String: return 'true' only if both operands have the same characters in the same exact order
-  * Number: return 'true' only if both operands have the same value
-    ** +0 and -0 are treated as the same value
-    ** return 'false' if either operand is 'NaN'; 'NaN' is never equal to 'NaN'
-  * Boolean: return 'true' only if operands are both 'true' or both 'false'
-  * BigInt: return 'true' only if operands have the same value
-  * Symbol: return 'ture' only if both operands refer to the same Symbol
-2. If one of the operands is 'null' or 'undefined', the other must also be 'null' or 'undefined' to return 'true', otherwise return 'false'.
-3. If one of the operands is an object and the other is a primitive, the object is converted to a primitive.
-4. Both operands are converted to primitives and the rest of the conversion is case-by-case:
-  * If both operands are the same type, follow the protocol from step 1.
-  * If one of the operands is a symbol, but the other isn't, return 'false'.
-  * If one of the operands is a Boolean but the other is not, convert the boolean to number:
-    ** 'true' becomes 1, and 'false' becomes 0
-    ** losely compare both
-  * Number to String: strings are converted to numbers; conversion failure results in NaN and comparison returns 'false'
-  * Number to BigInt: compare by their numeric value; if the number is +/-Infinity or NaN, return 'false'
-  * String to BigInt: convert strings to BigInts using the same algorithm as the BigInt() constructor; if conversion fails, return 'false'
+  1. If the operands have the same type:
+    * Object: return 'true' only if both operands refer to the same object
+    * String: return 'true' only if both operands have the same characters in the same exact order
+    * Number: return 'true' only if both operands have the same value
+      ** +0 and -0 are treated as the same value
+      ** return 'false' if either operand is 'NaN'; 'NaN' is never equal to 'NaN'
+    * Boolean: return 'true' only if operands are both 'true' or both 'false'
+    * BigInt: return 'true' only if operands have the same value
+    * Symbol: return 'ture' only if both operands refer to the same Symbol
+  2. If one of the operands is 'null' or 'undefined', the other must also be 'null' or 'undefined' to return 'true', otherwise return 'false'.
+  3. If one of the operands is an object and the other is a primitive, the object is converted to a primitive.
+  4. Both operands are converted to primitives and the rest of the conversion is case-by-case:
+    * If both operands are the same type, follow the protocol from step 1.
+    * If one of the operands is a symbol, but the other isn't, return 'false'.
+    * If one of the operands is a Boolean but the other is not, convert the boolean to number:
+      ** 'true' becomes 1, and 'false' becomes 0
+      ** losely compare both
+    * Number to String: strings are converted to numbers; conversion failure results in NaN and comparison returns 'false'
+    * Number to BigInt: compare by their numeric value; if the number is +/-Infinity or NaN, return 'false'
+    * String to BigInt: convert strings to BigInts using the same algorithm as the BigInt() constructor; if conversion fails, return 'false'
 
-  Loose equality is "symmetric": A == B has similar semantics to B == A for any values of A and B (order of applied conversions stays the same)
+Loose equality is "symmetric": A == B has similar semantics to B == A for any values of A and B (order of applied conversions stays the same)
 
-  // No type conversion
-  1 == 1; // true
-  'hallo' == 'hallo'; // true
+// No type conversion
+1 == 1; // true
+'hallo' == 'hallo'; // true
 
-  // With type conversion
-  '1' == 1; // true
-  0 == false; // true
-  0 == null; // false
-  0 == undefined // false
-  0 == !!null; // true; due to Logical NOT operator
-  0 == !!undefined; // true; due to Logical NOT operator
-  null == undefined; // true
+// With type conversion
+'1' == 1; // true
+0 == false; // true
+0 == null; // false
+0 == undefined // false
+0 == !!null; // true; due to Logical NOT operator
+0 == !!undefined; // true; due to Logical NOT operator
+null == undefined; // true
 
-  // Comparison of objects
-  const num1 = new Number(1);
-  const num2 = new Number(1);
-  num1 == 1; // true
-  num1 == num2; // false
-  num1 == num1; // true
+// Comparison of objects
+const num1 = new Number(1);
+const num2 = new Number(1);
+num1 == 1; // true
+num1 == num2; // false
+num1 == num1; // true
 
-  Reference(s):
+Reference(s):
 
-  MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Equality
-      - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#strict_equality_using
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Equality
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#strict_equality_using
+
+
+2.2.23 - Concept: null, Language/Framework: JavaScript
+
+TIL... In JavaScript, the 'null' value represents the intentional absence of any object value. (MDN) It is a primitive value and is treated as falsy for boolean operations.
+
+// Syntax
+null
+
+The 'null' value is written with a literal: null. Unlike 'undefined', 'null' is not an identifier for a property of the global object. Therefore, 'null' expresses a lack of identification which indicate that a variable does not point to an object. In APIs, null is typically retireved in a place where an object can be expected but no object is relevant.
+
+// The variable here does not exist. It isn't defined and hasn't been initialized:
+ghost; // ReferenceError: ghost is not defined
+
+// ghost is now known to exist but has no type or value:
+const ghost = null;
+ghost; // null
+
+Different from 'undefined'
+
+As I now know, the equality (==) operator performs type-conversion. Keep this in mind when checking for 'null' or 'undefined':
+
+typeof null // "object" (not "null" for legacy reasons)
+typeof undefined // "undefined"
+null === undefined // false
+null == undefined // true
+null === null // true
+null == null // true
+!null // true
+!!null // false
+isNaN(1 + null) // false
+isNaN(1 + undefined) // true
+
+Reference(s):
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null
+
+freeCodeCamp - https://www.freecodecamp.org/news/javascript-nullable-how-to-check-for-null-in-js/
