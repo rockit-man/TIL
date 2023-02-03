@@ -841,3 +841,54 @@ Reference(s):
 MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null
 
 freeCodeCamp - https://www.freecodecamp.org/news/javascript-nullable-how-to-check-for-null-in-js/
+
+
+2.3.23 - Concept: undefined, Language/Framework: JavaScript
+
+TIL... undefined is a global property that represents the primitive value 'undefined'. It is a primitive value belonging to variables that have not been assigned a value. Methods or statements will return 'undefined' if the variable being evaluated does not have an assigned value. A function will return 'undefine' if a value was not returned.
+
+Note: Though it's possible to use 'undefined' as a variable name, it isn't wise because it makes code difficult to maintain and debug.
+
+// Strict equality and undefined
+let x;
+if (x === undefined) {
+  // these statements will execute
+} else {
+  // these statements do not execute
+}
+
+Note: If the standard equality (==) operator is used to checked for 'undefined' (x == undefined), it will also check whether x is 'null'. 'null' is not equivalent to 'undefined'.
+
+null == undefined // true
+null === undefined // false
+
+// typeof operator and undefined
+let x;
+if (typeof === "undefined") {
+  // these statements execute
+}
+
+Note: typeof will not throw an error if the variable has not been declared.
+
+if (x === undefined) {
+  // Throws a ReferenceError
+}
+
+// Alternative to typeof
+if ("x" in window) {
+  // these statements execute only if x is defined globally
+}
+
+// Third alternative: void operator
+let x;
+if (x === void 0) {
+  // these statements will execute
+}
+
+if (y === void 0) {
+  // throws Uncaught ReferenceError: y is not defined
+}
+
+Reference(s):
+
+MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined
