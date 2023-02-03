@@ -754,7 +754,7 @@ TIL... Similarly to the strict equality (===) operator, the equality (==) operat
 // Syntax:
 x == y
 
-The equality operator (== and !=) provide the IsLooselyEqual semantic:
+The equality operator (== and !=) provide the 'IsLooselyEqual' semantic:
 
 1. If the operands have the same type:
   * Object: return 'true' only if both operands refer to the same object
@@ -798,3 +798,8 @@ The equality operator (== and !=) provide the IsLooselyEqual semantic:
   num1 == 1; // true
   num1 == num2; // false
   num1 == num1; // true
+
+  Reference(s):
+
+  MDN - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Equality
+      - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#strict_equality_using
